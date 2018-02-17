@@ -4,7 +4,6 @@
 
 from urllib import request
 from urllib import error
-from time import sleep
 import numpy as np
 import cv2
 
@@ -37,18 +36,18 @@ def main():
                 raise IOError("FAILED TO ACCESS FILE " + "last.txt")
             file.flush()
             file.close()
-        start = last_value - 1
+        start = last_value
     else:
         start = int(input("Start image number: "))
 
     time = int(input("Watching time per image (in milliseconds): "))
 
-    for i in range(start, 999999):
+    for i in range(start, 9999999):
         if counter >= value:
-            last_value = i
+            last_value = i - 2
             break
         url = get_url(i)
-        if not url == "":
+        if url != "":
             img = show_image(url)
             cv2.imshow("Image", img)
             cv2.waitKey(time)
@@ -73,17 +72,17 @@ def main():
 
 def get_url(i):
     base = "https://weathercam.digitraffic.fi/"
-    photoname = "C0"
+    photoname = "C"
     jpg = ".jpg"
 
     name = ""
     i_str = str(i)
-    if len(i_str) < 6:
-        for j in range(0, 6 - len(i_str)):
+    if len(i_str) < 7:
+        for j in range(0, 7 - len(i_str)):
             name += "0"
     name += i_str
 
-    if len(name) != 6:
+    if len(name) != 7:
         print("NAME ERROR")
         return
 
@@ -92,7 +91,6 @@ def get_url(i):
 
     try:
         request.urlopen(url)
-        sleep(0.01)
         print("SUCCESS: " + url)
         global succes_count
         succes_count += 1
