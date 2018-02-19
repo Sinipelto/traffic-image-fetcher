@@ -38,10 +38,11 @@ def main():
             file.close()
         start = last_value
     else:
-        start = int(input("Start image number: "))
+        start = int(input("Start image number (suggestion: 150000): "))
 
     time = int(input("Watching time per image (in milliseconds): "))
 
+    print("Please wait a moment...")
     for i in range(start, 9999999):
         if counter >= value:
             last_value = i - 2
@@ -91,7 +92,7 @@ def get_url(i):
 
     try:
         request.urlopen(url)
-        print("SUCCESS: " + url)
+        print("URL SUCCESS: " + url)
         global succes_count
         succes_count += 1
         return url
